@@ -56,14 +56,14 @@ const routes = [
                 /* webpackChunkName: "tabs" */
                 "../views/Tabs.vue")
             }, {
-                path: "/donate",
-                name: "Donate",
+                path: "/map",
+                name: "Map",
                 meta: {
-                    title: '鼓励作者'
+                    title: '地图'
                 },
                 component: () => import (
                 /* webpackChunkName: "donate" */
-                "../views/Donate.vue")
+                "../views/Map.vue")
             }, {
                 path: "/permission",
                 name: "Permission",
