@@ -4,7 +4,7 @@
             <div class="ms-title">后台管理系统</div>
             <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
                 <el-form-item prop="username">
-                    <el-input v-model="param.username" placeholder="username">
+                    <el-input v-model="param.userId" placeholder="username">
                         <template #prepend>
                             <el-button icon="el-icon-user"></el-button>
                         </template>
@@ -14,7 +14,7 @@
                     <el-input
                         type="password"
                         placeholder="password"
-                        v-model="param.password"
+                        v-model="param.userPw"
                         @keyup.enter="submitForm()"
                     >
                         <template #prepend>
@@ -22,8 +22,17 @@
                         </template>
                     </el-input>
                 </el-form-item>
+                <el-form-item label="角色">
+                  <el-radio-group v-model="param.userRole">
+                    <el-radio label="1">教师</el-radio>
+                    <el-radio label="0">学生</el-radio>
+                  </el-radio-group>
+            </el-form-item>
                 <div class="login-btn">
                     <el-button type="primary" @click="submitForm()">登录</el-button>
+                </div>
+                <div class="login-btn">
+                    <el-button type="primary" @click="registerForm()">注册</el-button>
                 </div>
                 <p class="login-tips">Tips : 用户名和密码随便填。</p>
             </el-form>
@@ -32,18 +41,21 @@
 </template>
 
 <script>
+import { login } from "../api/index";
+import { saveInfo } from "../utils/tools";
 export default {
     data() {
         return {
             param: {
-                username: "admin",
-                password: "123123"
+                userId: "",
+                userPw: "",
+                userRole:"0"
             },
             rules: {
-                username: [
+                userId: [
                     { required: true, message: "请输入用户名", trigger: "blur" }
                 ],
-                password: [
+                userPw: [
                     { required: true, message: "请输入密码", trigger: "blur" }
                 ]
             }
@@ -54,16 +66,24 @@ export default {
     },
     methods: {
         submitForm() {
-            this.$refs.login.validate(valid => {
+            this.$refs.login.validate(async(valid) => {
                 if (valid) {
-                    this.$message.success("登录成功");
-                    localStorage.setItem("ms_username", this.param.username);
-                    this.$router.push("/");
+                    const {errCode,data} = await login({...this.param})
+                    if(errCode==="0"){
+                        this.$message.success("登录成功");
+                        saveInfo("userType",data.userRole)
+                        saveInfo("userName",data.name);
+                        saveInfo("ID",data.id);
+                        this.$router.push("/");
+                    }
                 } else {
                     this.$message.error("请输入账号和密码");
                     return false;
                 }
             });
+        },
+        registerForm(){
+            this.$router.push("/register");
         }
     }
 };

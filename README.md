@@ -47,7 +47,7 @@ Vue2 版本请看 [tag-V4.2.0](https://github.com/lin-xin/vue-manage-system/tree
 
 -   [x] Element Plus
 -   [x] 登录/注销
--   [x] Dashboard
+-   [x] course
 -   [x] 表格
 -   [x] Tab 选项卡
 -   [x] 表单

@@ -4,104 +4,176 @@ import Home from "../views/Home.vue";
 const routes = [
     {
         path: '/',
-        redirect: '/dashboard'
+        redirect: '/course'
     }, {
         path: "/",
         name: "Home",
         component: Home,
         children: [
             {
-                path: "/dashboard",
-                name: "Dashboard",
+                path: "/course",
+                name: "course",
                 meta: {
-                    title: '系统首页'
+                    title: '课程管理'
                 },
                 component: () => import (
-                /* webpackChunkName: "dashboard" */
-                "../views/Dashboard.vue")
-            }, {
-                path: "/table",
-                name: "BaseTable",
+                "../views/Course.vue")
+            },
+            {
+                path: "/lessonInfo",
+                name: "lessonInfo",
                 meta: {
-                    title: '表格'
+                    title: '课程详情'
                 },
                 component: () => import (
-                /* webpackChunkName: "table" */
-                "../views/BaseTable.vue")
-            }, {
-                path: "/charts",
-                name: "BaseCharts",
+                "../views/LessonInfo.vue")
+            },
+            {
+                path: "/courseT",
+                name: "courseT",
                 meta: {
-                    title: '图表'
+                    title: '课程管理'
+                },
+                component: () => import (
+                /* webpackChunkName: "course" */
+                "../views/CourseT.vue")
+            },
+            {
+                path: "/workT",
+                name: "workT",
+                meta: {
+                    title: '作业-老师'
+                },
+                component: () => import (
+                /* webpackChunkName: "course" */
+                "../views/workT.vue")
+            },
+            {
+                path: "/work",
+                name: "work",
+                meta: {
+                    title: '作业-学生'
+                },
+                component: () => import (
+                /* webpackChunkName: "course" */
+                "../views/work.vue")
+            },
+            {
+                path: "/lesson",
+                name: "lesson",
+                meta: {
+                    title: '课时管理'
+                },
+                component: () => import (
+                /* webpackChunkName: "course" */
+                "../views/Lesson.vue")
+            },
+            //  {
+            //     path: "/table",
+            //     name: "BaseTable",
+            //     meta: {
+            //         title: '表格'
+            //     },
+            //     component: () => import (
+            //     /* webpackChunkName: "table" */
+            //     "../views/BaseTable.vue")
+            // },
+            {
+                path: "/lessonDetails",
+                name: "lessonDetails",
+                meta: {
+                    title: '课时详情'
+                },
+                component: () => import (
+                /* webpackChunkName: "course" */
+                "../views/LessonDetails.vue")
+            },
+            {
+                path: "/admin",
+                name: "admin",
+                meta: {
+                    title: '管理员'
                 },
                 component: () => import (
                 /* webpackChunkName: "charts" */
-                "../views/BaseCharts.vue")
-            }, {
-                path: "/form",
-                name: "BaseForm",
-                meta: {
-                    title: '表单'
-                },
-                component: () => import (
-                /* webpackChunkName: "form" */
-                "../views/BaseForm.vue")
-            }, {
-                path: "/tabs",
-                name: "Tabs",
-                meta: {
-                    title: 'tab标签'
-                },
-                component: () => import (
-                /* webpackChunkName: "tabs" */
-                "../views/Tabs.vue")
-            }, {
-                path: "/map",
-                name: "Map",
-                meta: {
-                    title: '地图'
-                },
-                component: () => import (
-                /* webpackChunkName: "donate" */
-                "../views/Map.vue")
-            }, {
-                path: "/permission",
-                name: "Permission",
-                meta: {
-                    title: '权限管理',
-                    permission: true
-                },
-                component: () => import (
-                /* webpackChunkName: "permission" */
-                "../views/Permission.vue")
-            }, {
-                path: "/i18n",
-                name: "I18n",
-                meta: {
-                    title: '国际化语言'
-                },
-                component: () => import (
-                /* webpackChunkName: "i18n" */
-                "../views/I18n.vue")
-            }, {
-                path: "/upload",
-                name: "Upload",
-                meta: {
-                    title: '上传插件'
-                },
-                component: () => import (
-                /* webpackChunkName: "upload" */
-                "../views/Upload.vue")
-            }, {
-                path: "/icon",
-                name: "Icon",
-                meta: {
-                    title: '自定义图标'
-                },
-                component: () => import (
-                /* webpackChunkName: "icon" */
-                "../views/Icon.vue")
-            }, {
+                "../views/Admin.vue")
+            },
+            //  {
+            //     path: "/charts",
+            //     name: "BaseCharts",
+            //     meta: {
+            //         title: '图表'
+            //     },
+            //     component: () => import (
+            //     /* webpackChunkName: "charts" */
+            //     "../views/BaseCharts.vue")
+            // }, {
+            //     path: "/form",
+            //     name: "BaseForm",
+            //     meta: {
+            //         title: '表单'
+            //     },
+            //     component: () => import (
+            //     /* webpackChunkName: "form" */
+            //     "../views/BaseForm.vue")
+            // }, {
+            //     path: "/tabs",
+            //     name: "Tabs",
+            //     meta: {
+            //         title: 'tab标签'
+            //     },
+            //     component: () => import (
+            //     /* webpackChunkName: "tabs" */
+            //     "../views/Tabs.vue")
+            // }, {
+            //     path: "/map",
+            //     name: "Map",
+            //     meta: {
+            //         title: '地图'
+            //     },
+            //     component: () => import (
+            //     /* webpackChunkName: "donate" */
+            //     "../views/Map.vue")
+            // },
+            //  {
+            //     path: "/permission",
+            //     name: "Permission",
+            //     meta: {
+            //         title: '权限管理',
+            //         permission: true
+            //     },
+            //     component: () => import (
+            //     /* webpackChunkName: "permission" */
+            //     "../views/Permission.vue")
+            // }, {
+            //     path: "/i18n",
+            //     name: "I18n",
+            //     meta: {
+            //         title: '国际化语言'
+            //     },
+            //     component: () => import (
+            //     /* webpackChunkName: "i18n" */
+            //     "../views/I18n.vue")
+            // }, {
+            //     path: "/upload",
+            //     name: "Upload",
+            //     meta: {
+            //         title: '上传插件'
+            //     },
+            //     component: () => import (
+            //     /* webpackChunkName: "upload" */
+            //     "../views/Upload.vue")
+            // }, {
+            //     path: "/icon",
+            //     name: "Icon",
+            //     meta: {
+            //         title: '自定义图标'
+            //     },
+            //     component: () => import (
+            //     /* webpackChunkName: "icon" */
+            //     "../views/Icon.vue")
+            // }, 
+            {
                 path: '/404',
                 name: '404',
                 meta: {
@@ -128,6 +200,16 @@ const routes = [
         component: () => import (
         /* webpackChunkName: "login" */
         "../views/Login.vue")
+    },
+    {
+        path: "/register",
+        name: "Register",
+        meta: {
+            title: '注册'
+        },
+        component: () => import (
+        /* webpackChunkName: "login" */
+        "../views/Register.vue")
     }
 ];
 
@@ -136,19 +218,19 @@ const router = createRouter({
     routes
 });
 
-router.beforeEach((to, from, next) => {
-    document.title = `${to.meta.title} | vue-manage-system`;
-    const role = localStorage.getItem('ms_username');
-    if (!role && to.path !== '/login') {
-        next('/login');
-    } else if (to.meta.permission) {
-        // 如果是管理员权限则可进入，这里只是简单的模拟管理员权限而已
-        role === 'admin'
-            ? next()
-            : next('/403');
-    } else {
-        next();
-    }
-});
+// router.beforeEach((to, from, next) => {
+//     document.title = `${to.meta.title} | vue-manage-system`;
+//     const role = localStorage.getItem('ms_username');
+//     if (!role && to.path !== '/login') {
+//         next('/login');
+//     } else if (to.meta.permission) {
+//         // 如果是管理员权限则可进入，这里只是简单的模拟管理员权限而已
+//         role === 'admin'
+//             ? next()
+//             : next('/403');
+//     } else {
+//         next();
+//     }
+// });
 
 export default router;
