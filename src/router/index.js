@@ -79,6 +79,16 @@ const routes = [
             //     "../views/BaseTable.vue")
             // },
             {
+                    path: "/upload",
+                    name: "Upload",
+                    meta: {
+                        title: '上传插件'
+                    },
+                    component: () => import (
+                    /* webpackChunkName: "upload" */
+                    "../views/Upload.vue")
+                }, 
+            {
                 path: "/lessonDetails",
                 name: "lessonDetails",
                 meta: {

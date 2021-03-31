@@ -18,7 +18,7 @@
                 <el-button
                     type="primary"
                     icon="el-icon-search"
-                    @click="addCourse"
+                    @click="addWork"
                     >添加</el-button
                 >
             </div>
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { reviewHomeWork, queryDoneHomeWork} from "../api/work";
+import { reviewHomeWork, queryDoneHomeWork, createWork} from "../api/work";
 import { createChatper } from '../api/chapter'
 import { getInfo } from "../utils/tools";
 export default {
@@ -110,6 +110,13 @@ export default {
                 this.$message.success(data)
              }
             
+        },
+
+        async addWork(){
+            const {errCode, errMsg} = await createWork({workContent:this.workContent,techerId: getInfo('ID'), techerName: getInfo('userName')})
+            if(errCode === "0"){ 
+                this.$message.success(errMsg)
+             }
         },
 
         gotoText(id){

@@ -12,12 +12,12 @@
         >
             <template v-for="item in items">
                 <template v-if="item.subs">
-                    <el-submenu :index="item.index" :key="item.index">
+                    <el-submenu v-if="item.type === '0'" :index="item.index" :key="item.index">
                         <template #title>
                             <i :class="item.icon"></i>
                             <span>{{ item.title }}</span>
                         </template>
-                        <template v-for="subItem in item.subs">
+                        <!-- <template v-for="subItem in item.subs">
                             <el-submenu
                                 v-if="subItem.subs"
                                 :index="subItem.index"
@@ -35,7 +35,7 @@
                                 :index="subItem.index"
                                 :key="subItem.index"
                             >{{ subItem.title }}</el-menu-item>
-                        </template>
+                        </template> -->
                     </el-submenu>
                 </template>
                 <template v-else>
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-// import bus from "../common/bus";
+import { getInfo } from "../utils/tools";
 export default {
     data() {
         return {
@@ -58,27 +58,32 @@ export default {
                 {
                     icon: "el-icon-lx-home",
                     index: "course",
-                    title: "课程管理-学生"
+                    title: "课程管理-学生",
+                    type: getInfo('userType')
                 },
                 {
                     icon: "el-icon-lx-home",
                     index: "courseT",
-                    title: "课程管理-老师"
+                    title: "课程管理-老师",
+                    type: getInfo('userType')
                 },
                 {
                     icon: "el-icon-s-order",
                     index: "work",
-                    title: "作业-学生"
+                    title: "作业-学生",
+                    type: getInfo('userType')
                 },
                 {
                     icon: "el-icon-s-order",
                     index: "workT",
-                    title: "作业-老师"
+                    title: "作业-老师",
+                    type: getInfo('userType')
                 },
                  {
                     icon: "el-icon-upload",
                     index: "upload",
-                    title: "资源上传"
+                    title: "资源上传",
+                    type: getInfo('userType')
                 },
             ]
         };
