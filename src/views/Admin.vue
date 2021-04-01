@@ -75,7 +75,6 @@
                 width="180">
             </el-table-column>
             <el-table-column
-            fixed="right"
             label="操作"
             >
             <template v-slot="scope">
@@ -90,42 +89,9 @@
             </el-pagination>
         </template> 
 </el-card>
-    <el-card>
-        <p>课程列表</p>
-         <el-table
-            :data="tableData"
-            style="width: 100%">
-            <el-table-column
-                prop="updTime"
-                label="日期"
-                width="180">
-            </el-table-column>
-            <el-table-column
-                prop="userName"
-                label="姓名"
-                width="180">
-            </el-table-column>
-            <el-table-column
-            fixed="right"
-            label="操作"
-            >
-            <template v-slot="scope">
-                <el-button type="text" size="small" @click="handlePass(scope.row.id)">通过</el-button>
-                <el-button type="text" size="small" @click="handleUnPass(scope.row.id)">未通过</el-button>
-            </template>
-            </el-table-column>
-            </el-table>
-            <el-pagination
-                :page-size="pageSize"
-                :page-count="pageNum"
-                :total="totle">
-            </el-pagination>
-          </template>
-    </el-card>
-    </div>
-    <div>
 
     </div>
+
 </template>
 
 <script>
@@ -184,7 +150,7 @@ import { queryTeachersPage, pass, deleteA, addTeacher } from "../api/user";
             },
             
             async getUnpassData(){
-               let {errCode,data} = await queryTeachersPage({...this.pageInfo})
+               let {errCode,data} = await queryTeachersPage({...this.pageInfo,userReviewStatus:this.userReviewStatus})
                 if(errCode==="0"){
                     this.totle = data.total;
                     this.tableData = data.datas;

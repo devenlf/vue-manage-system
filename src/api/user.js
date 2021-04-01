@@ -15,9 +15,7 @@ export const pass = query => {
     return request({
         url: 'user/reviewUser',
         method: 'post',
-        params: {
-            ...query
-        }
+        data: query
     });
 };
 
@@ -25,9 +23,7 @@ export const deleteA = query => {
     return request({
         url: 'user/deleteTeacher',
         method: 'post',
-        params: {
-            ...query
-        }
+        data: query
     });
 };
 

@@ -39,7 +39,7 @@
                 <el-table-column prop="workContent" label="作业内容"></el-table-column>
                 <el-table-column label="操作">
                     <template v-slot="scope">
-                        <el-button type="text" size="small" @click="workCommentActive(scope.row.id)">批改</el-button>
+                        <el-button type="text" size="small" @click="showReview(scope.row.id)">批改</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -54,34 +54,26 @@
                 ></el-pagination>
             </div>
         </div>
-            <!-- 编辑弹出框 -->
-        <el-dialog title="作业审批" v-model="editVisible" width="80%">
-            <el-form ref="form" :model="workComment" label-width="70px">
-                <el-form-item label="课件名称">
-                    <el-input v-model="workComment"></el-input>
-                </el-form-item>
-            </el-form>
-            <template #footer>
-                <span class="dialog-footer">
-                    <el-button @click="editVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="saveEdit"
-                        >确 定</el-button
-                    >
-                </span>
-            </template>
-        </el-dialog>
+        <div v-if="editVisible">作业回复: <el-input
+                    v-model="workComment"
+                    placeholder="作业内容"
+                    class="handle-input mr10"
+                ></el-input>
+                <el-button type="text" size="small" @click="workCommentActive">回复</el-button>
+                </div>  
     </div>
 </template>
 
 <script>
 import { reviewHomeWork, queryDoneHomeWork, createWork} from "../api/work";
-import { createChatper } from '../api/chapter'
 import { getInfo } from "../utils/tools";
 export default {
     data() {
         return {
             workContent:"",
             workComment:"",
+            workCommentId: 0,
+            editVisible: false,
             query:{
                 pageIndex:1,
                 pageSize:10,
@@ -104,10 +96,16 @@ export default {
              }
         },
 
-        async workCommentActive(id) {
-            const {errCode, data} = await reviewHomeWork({id,workComment:this.workComment})
+        showReview(id){
+            this.editVisible = true
+            this.workCommentId = id;
+        },
+
+        async workCommentActive() {
+            const {errCode, data} = await reviewHomeWork({id:this.workCommentId,workComment:this.workComment})
             if(errCode === "0"){ 
                 this.$message.success(data)
+                this.editVisible = false
              }
             
         },
@@ -117,32 +115,6 @@ export default {
             if(errCode === "0"){ 
                 this.$message.success(errMsg)
              }
-        },
-
-        gotoText(id){
-            this.editVisible=true;
-            this.chapterText.courseId = id;
-        },
-
-        async saveEdit(){
-            const {errCode, errMsg} = await createChatper({...this.chapterText,courseId:this.chapterText.courseId})
-            if(errCode === "0"){ 
-                this.$message.success(errMsg)
-             }
-            
-        },
-        
-        // 删除操作
-        handleDelete(index) {
-            // 二次确认删除
-            this.$confirm("确定要删除吗？", "提示", {
-                type: "warning",
-            })
-                .then(() => {
-                    this.$message.success("删除成功");
-                    this.tableData.splice(index, 1);
-                })
-                .catch(() => {});
         },
     },
 };

@@ -62,13 +62,8 @@
                 ref="multipleTable"
                 header-cell-class-name="table-header"
             >
-                <el-table-column
-                    prop="courseName"
-                    label="课程名"
-                    width="200"
-                ></el-table-column>
-                <el-table-column prop="courseDese" label="描述"></el-table-column>
-                <el-table-column prop="teacherName" label="老师"></el-table-column>
+                <el-table-column prop="questionContent" label="问题"></el-table-column>
+                <el-table-column prop="workContent" label="回答"></el-table-column>
                 <el-table-column prop="createDate" label="创建时间"></el-table-column>
                 <el-table-column label="操作">
                     <template v-slot="scope">
@@ -134,6 +129,7 @@ export default {
             form: {},
             idx: -1,
             id: -1,
+            workId:0,
         };
     },
     created() {
@@ -165,10 +161,10 @@ export default {
             this.$set(this.query, "pageIndex", 1);
             this.getData();
         },
-        async doHomeWork(val){
+        async doHomeWork(){
             const {errCode,errMsg} = await doHomeWork({
-                    courseId:val.courseId, 
-                    userId:val.id,
+                    workId:this.workId, 
+                    userId:getInfo('ID'),
                     workContent: this.workContent,
                     userName:getInfo('userName')
                 })
@@ -197,7 +193,7 @@ export default {
         },
         // 编辑操作
         handleEdit(row) {
-            console.log(row)
+            this.workId = row.id
             this.editVisible = true;
         },
         // 保存编辑

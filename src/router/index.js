@@ -108,6 +108,16 @@ const routes = [
                 /* webpackChunkName: "charts" */
                 "../views/Admin.vue")
             },
+            {
+                path: "/adminCourse",
+                name: "adminCourse",
+                meta: {
+                    title: '管理员'
+                },
+                component: () => import (
+                /* webpackChunkName: "charts" */
+                "../views/adminCourse.vue")
+            },
             //  {
             //     path: "/charts",
             //     name: "BaseCharts",

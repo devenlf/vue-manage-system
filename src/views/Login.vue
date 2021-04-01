@@ -25,7 +25,7 @@
                 <el-form-item label="角色">
                   <el-radio-group v-model="param.userRole">
                     <el-radio label="1">教师</el-radio>
-                    <el-radio label="0">学生</el-radio>
+                    <el-radio label="2">学生</el-radio>
                   </el-radio-group>
             </el-form-item>
                 <div class="login-btn">
@@ -49,7 +49,7 @@ export default {
             param: {
                 userId: "",
                 userPw: "",
-                userRole:"0"
+                userRole:"1"
             },
             rules: {
                 userId: [
@@ -72,7 +72,7 @@ export default {
                     if(errCode==="0"){
                         this.$message.success("登录成功");
                         saveInfo("userType",data.userRole)
-                        saveInfo("userName",data.name);
+                        saveInfo("userName",data.userName);
                         saveInfo("ID",data.id);
                         this.$router.push("/");
                     }
