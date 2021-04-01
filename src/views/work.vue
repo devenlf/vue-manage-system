@@ -39,7 +39,7 @@
                 <el-table-column prop="createDate" label="创建时间"></el-table-column>
                 <el-table-column label="操作">
                     <template v-slot="scope">
-                        <el-button type="text" size="small" @click="doHomeWork(scope.row)">做作业</el-button>
+                        <el-button type="text" size="small" @click="handleEdit(scope.row)">做作业</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -91,18 +91,15 @@
 
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" v-model="editVisible" width="30%">
-            <el-form ref="form" :model="form" label-width="70px">
-                <el-form-item label="用户名">
-                    <el-input v-model="form.name"></el-input>
-                </el-form-item>
-                <el-form-item label="地址">
-                    <el-input v-model="form.address"></el-input>
+            <el-form ref="form" label-width="70px">
+                <el-form-item label="回答">
+                    <el-input v-model="workContent"></el-input>
                 </el-form-item>
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
                     <el-button @click="editVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="saveEdit"
+                    <el-button type="primary" @click="doHomeWork"
                         >确 定</el-button
                     >
                 </span>
@@ -126,6 +123,7 @@ export default {
                 name:"",
                 des:""
             },
+            workContent:"",
             courseType:"1",
             unSeletedWorkArr: [],
             workArr:[],
@@ -169,10 +167,13 @@ export default {
         },
         async doHomeWork(val){
             const {errCode,errMsg} = await doHomeWork({
-                courseId:val.courseId, 
-                userId:val.id
+                    courseId:val.courseId, 
+                    userId:val.id,
+                    workContent: this.workContent,
+                    userName:getInfo('userName')
                 })
             if(errCode === "0"){ 
+                this.editVisible = false
                 this.$message.success(errMsg)
              }
         },
@@ -195,9 +196,8 @@ export default {
             this.multipleSelection = [];
         },
         // 编辑操作
-        handleEdit(index, row) {
-            this.idx = index;
-            this.form = row;
+        handleEdit(row) {
+            console.log(row)
             this.editVisible = true;
         },
         // 保存编辑
