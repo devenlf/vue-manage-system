@@ -4,9 +4,7 @@ export const createWork = query => {
     return request({
         url: 'work/createWork',
         method: 'post',
-        params: {
-            ...query
-        }
+        data: query,
     });
 };
 
@@ -24,15 +22,13 @@ export const doHomeWork = query => {
     return request({
         url: 'work/doHomeWork',
         method: 'post',
-        params: {
-            ...query
-        }
+        data: query
     });
 };
 
 export const queryDoneHomeWork = query => {
     return request({
-        url: 'work/queryDoneHomeWork',
+        url: 'work/queryDoneHomeWorkPage',
         method: 'get',
         params: {
             ...query
@@ -44,8 +40,6 @@ export const reviewHomeWork = query => {
     return request({
         url: 'work/reviewHomeWork',
         method: 'post',
-        params: {
-            ...query
-        }
+        data: query
     });
 };

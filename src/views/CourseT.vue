@@ -23,7 +23,7 @@
                 <el-button
                     type="primary"
                     icon="el-icon-search"
-                    @click="addCourse"
+                    @click="addCourseF"
                     >添加</el-button
                 >
             </div>
@@ -128,7 +128,7 @@ export default {
         // 获取 easy-mock 的模拟数据
         async getData() {
            const teacherId = getInfo('ID');
-           const {errCode,datas} = await searchCourseList({pageNum:this.query.pageIndex, pageSize:this.query.pageSize, teacherId})
+           const {errCode, data: {datas}} = await searchCourseList({pageNum:this.query.pageIndex, pageSize:this.query.pageSize, teacherId})
             if(errCode === "0"){ 
                 this.tableData = datas
              }
@@ -166,7 +166,7 @@ export default {
                 })
                 .catch(() => {});
         },
-        async addCourse(){
+        async addCourseF(){
             const {data,errCode} = await addCourse({
                 courseName:this.searchCourse.name,
                 courseDese: this.searchCourse.des,
@@ -174,7 +174,7 @@ export default {
                 teacherName: getInfo('userName'),
             })
             if(errCode === "0"){ this.$message.success("添加成功"); }
-            console.log(data,)
+            console.log(data)
         },
         delAllSelection() {
             const length = this.multipleSelection.length;

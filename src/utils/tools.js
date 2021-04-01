@@ -12,5 +12,5 @@ export const removeInfo = key => {
 };
 
 export const clearInfo = () => {
-    localStorage.clear();
+    return localStorage.clear();
 };

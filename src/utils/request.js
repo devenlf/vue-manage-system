@@ -2,7 +2,8 @@ import axios from 'axios';
 
 const service = axios.create({
     headers: {'Content-Type': '	application/json'},
-    baseURL: 'https://yapi.baidu.com/mock/43399/api/',
+    //baseURL: 'https://yapi.baidu.com/mock/43399/api/',
+    baseURL: 'http://127.0.0.1:8080/',
     timeout: 5000
 });
 

@@ -4,9 +4,7 @@ export const addcourse = query => {
     return request({
         url: 'course/createCourse',
         method: 'post',
-        params: {
-            ...query
-        }
+        data: query
     });
 };
 
@@ -25,9 +23,7 @@ export const delCourse = query => {
     return request({
         url: 'course/deleteCourse',
         method: 'post',
-        params: {
-            ...query
-        }
+        data: query
     });
 };
 
@@ -45,9 +41,7 @@ export const joinCourse = query => {
     return request({
         url: 'course/joinCourse',
         method: 'post',
-        params: {
-            ...query
-        }
+        data: query
     });
 };
 
@@ -55,8 +49,6 @@ export const cancelCourse = query => {
     return request({
         url: 'course/cancelCourse',
         method: 'post',
-        params: {
-            ...query
-        }
+       data: query
     });
 };

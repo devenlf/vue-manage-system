@@ -40,9 +40,10 @@ import { queryChapterList } from '../api/chapter'
         },
         methods: {
             async queryChapterList(){
-                const {errCode, datas} = await queryChapterList({courseId:this.$route.params.courseId});
+                const {errCode, data} = await queryChapterList({courseId:this.$route.params.courseId});
                 if(errCode === "0"){
-                    this.chapterListData = datas;
+                    console.log(data)
+                    this.chapterListData = data;
                 }
                 
             },

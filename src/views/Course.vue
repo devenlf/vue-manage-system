@@ -119,6 +119,7 @@
 
 <script>
 import { searchCourseList, queryJoinedCourse, joinCourse, cancelCourse } from "../api/course";
+import { getInfo } from '../utils/tools'
 export default {
     data() {
         return {
@@ -159,14 +160,13 @@ export default {
         },
         // 获取 easy-mock 的模拟数据
         async getUnSeletedCourseData() {
-           const {errCode,datas} = await searchCourseList({pageNum:this.query.pageIndex, pageSize:this.query.pageSize})
+           const {errCode,data:{datas}} = await searchCourseList({pageNum:this.query.pageIndex, pageSize:this.query.pageSize})
             if(errCode === "0"){ 
                 this.unSeletedCourseArr = datas
-                console.log(this.tableData)
              }
         },
          async getSeletedCourseData() {
-           const {errCode,datas} = await queryJoinedCourse({pageNum:this.query.pageIndex, pageSize:this.query.pageSize})
+           const {errCode,data:{datas}} = await queryJoinedCourse({pageNum:this.query.pageIndex, pageSize:this.query.pageSize, userId:getInfo('ID')})
             if(errCode === "0"){ 
                 this.seletedCourseArr = datas
                 console.log(this.tableData)
@@ -191,8 +191,8 @@ export default {
         },
         async jionCourse(val){
             const {errCode,errMsg} = await joinCourse({
-                courseId:val.courseId, 
-                userId:val.id
+                courseId:val.id, 
+                userId:getInfo('ID')
                 })
             if(errCode === "0"){ 
                 this.$message.success(errMsg)

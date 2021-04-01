@@ -45,6 +45,7 @@
     </div>
 </template>
 <script>
+
 export default {
     data() {
         return {
@@ -66,7 +67,7 @@ export default {
         // 用户名下拉菜单选择事件
         handleCommand(command) {
             if (command == "loginout") {
-                localStorage.clearInfo();
+                window.localStorage.clear()
                 this.$router.push("/login");
             }
         },

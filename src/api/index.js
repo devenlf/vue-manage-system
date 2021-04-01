@@ -13,7 +13,7 @@ export const register = query => {
     return request({
         url: 'user/registerUser',
         method: 'post',
-        params: query
+        data: query
     });
 };
 
@@ -21,7 +21,7 @@ export const login = query => {
     return request({
         url: 'user/loginUser',
         method: 'post',
-        params: query
+        data: query
     });
 };
 

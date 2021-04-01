@@ -34,17 +34,12 @@
                 ref="multipleTable"
                 header-cell-class-name="table-header"
             >
-                <el-table-column
-                    prop="courseName"
-                    label="课程名"
-                    width="200"
-                ></el-table-column>
-                <el-table-column prop="courseDese" label="描述"></el-table-column>
-                <el-table-column prop="teacherName" label="老师"></el-table-column>
+                <el-table-column prop="techerName" label="老师"></el-table-column>
+                <el-table-column prop="workContent" label="描述"></el-table-column>
                 <el-table-column prop="createDate" label="创建时间"></el-table-column>
                 <el-table-column label="操作">
                     <template v-slot="scope">
-                        <el-button type="text" size="small" @click="jionCourse(scope.row)">做作业</el-button>
+                        <el-button type="text" size="small" @click="doHomeWork(scope.row)">做作业</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -117,8 +112,9 @@
 </template>
 
 <script>
-import { joinCourse, cancelCourse } from "../api/course";
-import { queryWorksPage, queryDoneHomeWork } from '../api/work'
+import { cancelCourse } from "../api/course";
+import { getInfo } from "../utils/tools"
+import { queryWorksPage, queryDoneHomeWork, doHomeWork } from '../api/work'
 export default {
     data() {
         return {
@@ -155,13 +151,13 @@ export default {
         },
         // 获取 easy-mock 的模拟数据
         async getUnWorksData() {
-           const {errCode,datas} = await queryWorksPage({pageNum:this.query.pageIndex, pageSize:this.query.pageSize})
+           const {errCode,data:{datas}} = await queryWorksPage({pageNum:this.query.pageIndex, pageSize:this.query.pageSize})
             if(errCode === "0"){ 
                 this.unSeletedWorkArr = datas
              }
         },
          async getWorkData() {
-           const {errCode,datas} = await queryDoneHomeWork({pageNum:this.query.pageIndex, pageSize:this.query.pageSize})
+           const {errCode,data:{datas}} = await queryDoneHomeWork({pageNum:this.query.pageIndex, pageSize:this.query.pageSize, userId:getInfo('ID')})
             if(errCode === "0"){ 
                 this.workArr = datas
              }
@@ -171,8 +167,8 @@ export default {
             this.$set(this.query, "pageIndex", 1);
             this.getData();
         },
-        async jionCourse(val){
-            const {errCode,errMsg} = await joinCourse({
+        async doHomeWork(val){
+            const {errCode,errMsg} = await doHomeWork({
                 courseId:val.courseId, 
                 userId:val.id
                 })

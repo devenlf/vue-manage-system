@@ -4,9 +4,7 @@ export const createChatper = query => {
     return request({
         url: 'chatper/createChatper',
         method: 'post',
-        params: {
-            ...query
-        }
+        data: query,
     });
 };
 

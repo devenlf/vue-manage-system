@@ -83,8 +83,8 @@ export default {
             workContent:"",
             workComment:"",
             query:{
-                pageIndex:"",
-                pageSize:"",
+                pageIndex:1,
+                pageSize:10,
             },
             tableData:[],
             userType:"",
@@ -98,7 +98,7 @@ export default {
         // 获取 easy-mock 的模拟数据
         async getData() {
            const teacherId = getInfo('ID');
-           const {errCode,datas} = await queryDoneHomeWork({pageNum:this.query.pageIndex, pageSize:this.query.pageSize, teacherId})
+           const {errCode,data:{datas}} = await queryDoneHomeWork({pageNum:this.query.pageIndex, pageSize:this.query.pageSize, teacherId})
             if(errCode === "0"){ 
                 this.tableData = datas
              }
