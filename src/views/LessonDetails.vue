@@ -34,7 +34,7 @@
                     </template>
                     <div class="teacherSpan">
                         <template v-for="item in dataList" :key="item.id">
-                            <span>{{item.commentContent}}</span><el-button @click="gotoCharpt" type="text">评论</el-button>
+                            <span>{{item.commentContent}}</span>
                         </template>
                     </div>
                 </el-card>

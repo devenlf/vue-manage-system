@@ -54,29 +54,19 @@ import { getInfo } from "../utils/tools";
 export default {
     data() {
         return {
-            items: [
+            items: [],
+            items1: [
                 {
                     icon: "el-icon-lx-home",
                     index: "course",
                     title: "课程管理-学生",
                     type: getInfo('userType')
                 },
-                {
-                    icon: "el-icon-lx-home",
-                    index: "courseT",
-                    title: "课程管理-老师",
-                    type: getInfo('userType')
-                },
+     
                 {
                     icon: "el-icon-s-order",
                     index: "work",
                     title: "作业-学生",
-                    type: getInfo('userType')
-                },
-                {
-                    icon: "el-icon-s-order",
-                    index: "workT",
-                    title: "作业-老师",
                     type: getInfo('userType')
                 },
                  {
@@ -85,8 +75,36 @@ export default {
                     title: "资源上传",
                     type: getInfo('userType')
                 },
+            ],
+            items2: [
+                {
+                    icon: "el-icon-lx-home",
+                    index: "courseT",
+                    title: "课程管理-老师",
+                    type: getInfo('userType')
+                },
+                {
+                    icon: "el-icon-s-order",
+                    index: "workT",
+                    title: "作业-老师",
+                    type: getInfo('userType')
+                },
+                {
+                    icon: "el-icon-upload",
+                    index: "upload",
+                    title: "资源上传",
+                    type: getInfo('userType')
+                },
             ]
         };
+    },
+    created(){
+       let userType = getInfo('userType');
+       if(userType === '1'){
+           this.items = this.items1
+       }else{
+           this.items = this.items2
+       }
     },
     computed: {
         onRoutes() {
