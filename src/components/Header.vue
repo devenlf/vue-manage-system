@@ -56,7 +56,7 @@ export default {
     },
     computed: {
         username() {
-            let username = localStorage.getItem("ms_username");
+            let username = localStorage.getItem("userName");
             return username ? username : this.name;
         },
         collapse() {

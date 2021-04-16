@@ -45,6 +45,7 @@
                 <el-table-column label="操作">
                     <template v-slot="scope">
                         <el-button type="text" size="small" @click="gotoText(scope.row.id)">编辑章节</el-button>
+                        <el-button type="text" size="small" @click="gotoChapterList(scope.row.id)">查看章节</el-button>
                         <el-button type="text" size="small" @click="delCourse(scope.row.id)">删除</el-button>
                     </template>
                 </el-table-column>
@@ -134,6 +135,10 @@ export default {
              }
         },
 
+         gotoChapterList(courseId){
+            this.$router.push({ name: 'lesson', params: { courseId }})
+        },
+
         async delCourse(id){
             const {errCode, data} = await delCourse({id})
             if(errCode === "0"){ 
@@ -168,7 +173,7 @@ export default {
         },
         async addCourseF(){
             const {data,errCode} = await addCourse({
-                courseName:this.searchCourse.name,
+                courseName: this.searchCourse.name,
                 courseDese: this.searchCourse.des,
                 teacherId:  getInfo('ID'),
                 teacherName: getInfo('userName'),

@@ -27,6 +27,7 @@
                     <el-radio label="1">教师</el-radio>
                     <el-radio label="2">学生</el-radio>
                   </el-radio-group>
+                  
             </el-form-item>
                 <div class="login-btn">
                     <el-button type="primary" @click="submitForm()">登录</el-button>
@@ -75,6 +76,13 @@ export default {
                         saveInfo("userName",data.userName);
                         saveInfo("ID",data.id);
                         this.$router.push("/");
+                        if(data.userRole === '1'){
+                            this.$router.push('/courseT')
+                        }else if(data.userRole === '2'){
+                             this.$router.push('/course')
+                        }
+                    }else{
+                        this.$message.error(data);
                     }
                 } else {
                     this.$message.error("请输入账号和密码");

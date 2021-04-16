@@ -15,7 +15,7 @@
                         <el-table-column prop="date" width="180"></el-table-column>
                         <el-table-column width="120">
                             <template #default="scope">
-                                <el-button size="small" @click="goChapterInfo(scope.row.chapterId)">学习</el-button>
+                                <el-button size="small" @click="goChapterInfo(scope.row)">学习</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -40,6 +40,7 @@ import { queryChapterList } from '../api/chapter'
         },
         methods: {
             async queryChapterList(){
+                console.log(this.$route.params.courseId)
                 const {errCode, data} = await queryChapterList({courseId:this.$route.params.courseId});
                 if(errCode === "0"){
                     console.log(data)
@@ -47,8 +48,11 @@ import { queryChapterList } from '../api/chapter'
                 }
                 
             },
-            async goChapterInfo(id){
-                this.$router.push({ name: 'lessonDetails', params: { id }})
+            async goChapterInfo(data){
+                let id = data.id;
+                let chapterId= data.chapterId
+                console.log(id,'id')
+                this.$router.push({ name: 'lessonDetails', params: { id, chapterId }})
             },
         },
         computed: {

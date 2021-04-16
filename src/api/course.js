@@ -1,6 +1,6 @@
 import request from '../utils/request';
 
-export const addcourse = query => {
+export const addCourse = query => {
     return request({
         url: 'course/createCourse',
         method: 'post',
@@ -9,7 +9,6 @@ export const addcourse = query => {
 };
 
 export const searchCourseList = query => {
-    console.log(query)
     return request({
         url: 'course/queryCoursePageList',
         method: 'get',

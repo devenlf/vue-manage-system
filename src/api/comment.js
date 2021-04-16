@@ -4,9 +4,7 @@ export const sumitComment = query => {
     return request({
         url: 'comment/sumitComment',
         method: 'post',
-        params: {
-            ...query
-        }
+        data: query
     });
 };
 
@@ -25,9 +23,7 @@ export const answerComment = query => {
     return request({
         url: 'comment/answerComment',
         method: 'post',
-        params: {
-            ...query
-        }
+        data: query
     });
 };
 

@@ -18,7 +18,7 @@
             <el-form-item label="角色">
                   <el-radio-group v-model="formLabelAlign.userRole">
                     <el-radio label="1">教师</el-radio>
-                    <el-radio label="0">学生</el-radio>
+                    <el-radio label="2">学生</el-radio>
                   </el-radio-group>
             </el-form-item>
             </el-form>
@@ -48,6 +48,7 @@ export default {
     },
     methods: {
         async submitForm() {
+            console.log(this.formLabelAlign.userRole)
           if(this.formLabelAlign.userPw != this.formLabelAlign.userPw1) { 
                this.$message({
                     message: '密码不一致',
@@ -55,21 +56,23 @@ export default {
                     });
                 return
           }
-         const {data} = await register({
+         const {data, errCode} = await register({
               userId:this.formLabelAlign.userId,
               userPw: this.formLabelAlign.userPw,
               userName: this.formLabelAlign.userName,
               userRole: this.formLabelAlign.userRole,
           })
-          if(data){
-              this.$message.success('注册成功');
-               if(this.param.userRole==="0"){
+               if(errCode === '0'){
                             saveInfo("userType",data.userRole)
                             saveInfo("userName",data.name);
                             saveInfo("ID",data.id);
+                             this.$message({
+                                message: '注册成功',
+                                type: 'success'
+                                });
+                            this.$router.push('/login')
                         }
-              this.$router.push("/");
-          }
+              
         }
 
         

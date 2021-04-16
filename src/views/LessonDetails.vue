@@ -34,7 +34,7 @@
                     </template>
                     <div class="teacherSpan">
                         <template v-for="item in dataList" :key="item.id">
-                            <span>{{item.commentContent}}</span>
+                            <p>{{item.userName}}:{{item.commentContent}}</p>
                         </template>
                     </div>
                 </el-card>
@@ -93,9 +93,9 @@ export default {
             this.dialogTableVisible = !this.dialogTableVisible;
         },
         async queryComments() {
-            const { errCode, datas} = await queryComments({id:this.$route.params.id})
+            const { errCode, data} = await queryComments({chapterId:this.$route.params.id})
             if(errCode === "0"){
-                this.dataList = datas;
+                this.dataList = data;
             }
         },
 
@@ -110,6 +110,8 @@ export default {
                 chapterId
             })
             if(errCode === "0"){
+                this.queryChapterInfo()
+                this.queryComments()
                 this.$message.successs(data)
             }
         }

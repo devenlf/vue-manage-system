@@ -25,10 +25,10 @@ export const login = query => {
     });
 };
 
-export const addTeacherexport = query => {
+export const addTeacher = query => {
     return request({
-        url: 'user/addTeacherexport',
+        url: 'user/addTeacher',
         method: 'post',
-        params: query
+        data: query
     });
 };

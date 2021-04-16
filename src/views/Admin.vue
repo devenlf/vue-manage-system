@@ -15,21 +15,8 @@
             </el-form-item>
         </el-form>
         <el-card class="box-card">
-        <div class="clearfix">
-            <p>老师列表</p>
-            <el-form :inline="true" :model="formInline" class="demo-form-inline">
-            <el-form-item label="状态">
-                <el-select v-model="userReviewStatus" @change="changeInfo" placeholder="活动区域">
-                <el-option label="未审核" value="0"></el-option>
-                <el-option label="审核" value="1"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="addTeacher">查询</el-button>
-            </el-form-item>
-        </el-form>
-        </div>
-        <template v-if="userReviewStatus==='0'">
+        <div>
+        <p>未审核</p>
          <el-table
             :data="tableData"
             style="width: 100%">
@@ -53,16 +40,12 @@
             </template>
             </el-table-column>
             </el-table>
-            <el-pagination
-                :page-size="pageSize"
-                :page-count="pageNum"
-                :total="totle">
-            </el-pagination>
-          </template>
+          </div>
 
-        <template  v-else>
+        <div>
+         <p>审核通过</p>
              <el-table
-            :data="tableData"
+            :data="tableData1"
             style="width: 100%">
             <el-table-column
                 prop="updTime"
@@ -82,12 +65,7 @@
             </template>
             </el-table-column>
             </el-table>
-               <el-pagination
-                :page-size="pageSize"
-                :page-count="pageNum"
-                :total="totle">
-            </el-pagination>
-        </template> 
+        </div> 
 </el-card>
 
     </div>
@@ -95,7 +73,9 @@
 </template>
 
 <script>
-import { queryTeachersPage, pass, deleteA, addTeacher } from "../api/user";
+import { queryTeachersPage, pass, deleteA } from "../api/user";
+import { addTeacher } from "../api/index";
+
     export default {
         name: 'admin',
         data() {
@@ -111,23 +91,13 @@ import { queryTeachersPage, pass, deleteA, addTeacher } from "../api/user";
                    userPw:"",
                    userName:""
                },
-                tableData: [{
-                    updTime: '2016-05-02',
-                    userName: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    updTime: '2016-05-04',
-                    userName: '王小虎',
-                    address: '上海市普陀区金沙江路 1517 弄'
-                }]
+                tableData: [],
+                tableData1:[]
             }
         },
         methods: {
             goStudy(index) {
                 console.log(index)
-            },
-            changeInfo(){
-                this.pageInfo.pageNum = 1;
             },
             async handlePass(id){
                 let {errCode} = await pass({id:id,userReviewStatus:"1"})
@@ -146,21 +116,24 @@ import { queryTeachersPage, pass, deleteA, addTeacher } from "../api/user";
             async addTeacher(){
                 let {errCode} = await addTeacher(this.formInline)
                 if(errCode==="0") this.$message.success("添加成功");
-
             },
             
             async getUnpassData(){
-               let {errCode,data} = await queryTeachersPage({...this.pageInfo,userReviewStatus:this.userReviewStatus})
+               let {errCode,data} = await queryTeachersPage({...this.pageInfo,userReviewStatus:"0"})
                 if(errCode==="0"){
-                    this.totle = data.total;
                     this.tableData = data.datas;
-                    this.pageInfo.pageNum = data.pageNum;
-                    this.pageInfo.pageSize = data.pageSize;
                 }
-            }
+            },
+            async getpassData(){  
+               let {errCode,data} = await queryTeachersPage({...this.pageInfo,userReviewStatus:"1"})
+                if(errCode==="0"){
+                    this.tableData1 = data.datas;
+                }
+            },
         },
         mounted(){
-            this.getUnpassData()
+            this.getUnpassData();
+            this.getpassData()
         },
         computed: {
             unreadNum(){

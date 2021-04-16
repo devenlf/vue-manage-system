@@ -100,7 +100,7 @@ export default {
     },
     created(){
        let userType = getInfo('userType');
-       if(userType === '1'){
+       if(userType === '2'){
            this.items = this.items1
        }else{
            this.items = this.items2
