@@ -26,6 +26,7 @@
                   <el-radio-group v-model="param.userRole">
                     <el-radio label="1">教师</el-radio>
                     <el-radio label="2">学生</el-radio>
+                    <el-radio label="3">管理员</el-radio>
                   </el-radio-group>
                   
             </el-form-item>
@@ -69,6 +70,15 @@ export default {
         submitForm() {
             this.$refs.login.validate(async(valid) => {
                 if (valid) {
+                 if(this.param.userRole === '3'){
+                    if(this.param.userId==='admin'&&this.param.userPw === 'admin123'){
+                        this.$message.success("登录成功");
+                        saveInfo("userType",this.param.userRole)
+                        saveInfo("userName",'admin');
+                        saveInfo("ID",'0');
+                        this.$router.push("/admin");
+                    }
+                  }else{
                     const {errCode,data} = await login({...this.param})
                     if(errCode==="0"){
                         this.$message.success("登录成功");
@@ -84,6 +94,7 @@ export default {
                     }else{
                         this.$message.error(data);
                     }
+                  }
                 } else {
                     this.$message.error("请输入账号和密码");
                     return false;
