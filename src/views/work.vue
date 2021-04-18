@@ -145,7 +145,7 @@ export default {
         },
         // 获取 easy-mock 的模拟数据
         async getUnWorksData() {
-           const {errCode,data:{datas}} = await queryWorksPage({pageNum:this.query.pageIndex, pageSize:this.query.pageSize})
+           const {errCode,data:{datas}} = await queryWorksPage({pageNum:this.query.pageIndex, pageSize:this.query.pageSize, userId:getInfo('ID')})
             if(errCode === "0"){ 
                 this.unSeletedWorkArr = datas
              }

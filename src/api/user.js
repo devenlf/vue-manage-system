@@ -26,5 +26,11 @@ export const deleteA = query => {
         data: query
     });
 };
-
+export const changeInfo = query => {
+    return request({
+        url: 'user/updUser',
+        method: 'post',
+        data: query
+    });
+};
 

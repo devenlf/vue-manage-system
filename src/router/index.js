@@ -118,6 +118,16 @@ const routes = [
                 /* webpackChunkName: "charts" */
                 "../views/adminCourse.vue")
             },
+            {
+                path: "/ChangeInfo",
+                name: "ChangeInfo",
+                meta: {
+                    title: '修改信息'
+                },
+                component: () => import (
+                /* webpackChunkName: "charts" */
+                "../views/ChangeInfo.vue")
+            },
             //  {
             //     path: "/charts",
             //     name: "BaseCharts",

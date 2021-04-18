@@ -33,9 +33,7 @@
                     </span>
                     <template #dropdown>
                         <el-dropdown-menu>
-                            <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
-                                <el-dropdown-item>个人信息</el-dropdown-item>
-                            </a>
+                            <el-dropdown-item @click="changeInfo">修改个人信息</el-dropdown-item>
                             <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
                         </el-dropdown-menu>
                     </template>
@@ -70,6 +68,10 @@ export default {
                 window.localStorage.clear()
                 this.$router.push("/login");
             }
+        },
+
+        changeInfo(){
+            this.$router.push("/changeInfo");
         },
         // 侧边栏折叠
         collapseChage() {

@@ -3,7 +3,7 @@
     <h1>修改信息</h1>
     <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
                 <el-form-item prop="username">
-                    <el-input v-model="param.userId" placeholder="username">
+                    <el-input v-model="param.userName" placeholder="username">
                         <template #prepend>
                             <el-button icon="el-icon-user"></el-button>
                         </template>
@@ -14,7 +14,6 @@
                         type="password"
                         placeholder="password"
                         v-model="param.userPw"
-                        @keyup.enter="submitForm()"
                     >
                         <template #prepend>
                             <el-button icon="el-icon-lock"></el-button>
@@ -29,18 +28,18 @@
 </template>
 
 <script>
-import { login } from "../api/index";
-import { saveInfo } from "../utils/tools";
+import { getInfo } from "../utils/tools";
+import { changeInfo } from "../api/user";
 export default {
     data() {
         return {
             param: {
                 userId: "",
                 userPw: "",
-                userRole:"1"
+                userName:""
             },
             rules: {
-                userId: [
+                userName: [
                     { required: true, message: "请输入用户名", trigger: "blur" }
                 ],
                 userPw: [
@@ -56,6 +55,14 @@ export default {
         submitForm() {
             this.$refs.login.validate(async(valid) => {
                 if (valid) {
+                     let {errCode} = await changeInfo({
+                         userId:getInfo('ID'),
+                         userName: this.param.userName,
+                         userPw: this.param.userPw,
+                     })
+                     if(errCode==="0") this.$message.success("修改成功");
+                    
+                    
                     console.log(123)
                 }
             });
